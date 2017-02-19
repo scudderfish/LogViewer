@@ -41,7 +41,7 @@ function resetChart() {
   }
   
 	
-	var times=dataStore.dataSeries["Device Time"]
+	var times=dataStore.dataSeries[dataStore.dataSeries.XAxis]
 	var data=[]	
 	for (var i=0;i<dataStore.dataSeries[labels[0]].length;i++) {
 		
@@ -53,7 +53,7 @@ function resetChart() {
 	}
 	
 	
-	labels.unshift("Device Time")
+	labels.unshift(dataStore.dataSeries.XAxis)
 	
   
  var g = new Dygraph(

@@ -51,7 +51,7 @@ function loadFile(file){
 	reader.onload = function(e) {
 		processData(reader.result);
 		setupSelectors()
-		setOptionDefaults("Engine RPM(rpm)","Throttle Position(Manifold)(%)","Intake Manifold Pressure(psi)")
+		setOptionDefaults()
 		resetChart()
 		constructMap()
 	}
@@ -99,8 +99,9 @@ function setOptions(select,list) {
 }
 function setOptionDefaults() {
 	var selects = document.querySelectorAll('.seriesSelect')
-	for(var i=0; i< selects.length && i < arguments.length;i++) {
-		selects[i].value = arguments[i]
+	var defaults=dataStore.dataSeries.defaultSelections;
+	for(var i=0; i< selects.length && i < defaults.length;i++) {
+		selects[i].value = defaults[i]
 	}
 }
 
