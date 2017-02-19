@@ -41,7 +41,7 @@ function getTorqueTimeStamp(val) {
 }
 
 
-function sniffData(data) {
+function ascertainLogType(data) {
 	if(data.length > 2) {
 		if (data[1].indexOf("Capture Date") == 1) {
 			return LogTypeEnum.MSDroid;
@@ -59,7 +59,7 @@ function sniffData(data) {
 
 function createSeries(data) {
 	var series= {};
-	series.logType = sniffData(data)
+	series.logType = ascertainLogType(data)
 	
 	switch(series.logType) {
 		case LogTypeEnum.MSDroid:
@@ -69,10 +69,37 @@ function createSeries(data) {
 		case LogTypeEnum.Torque:
 			processTorqueLog(series,data)
 			break;	
+			
+		case LogTypeEnum.WiPy:
+			processWiPyLog(series,data)
+			break;
+			
 	}
 	return series;
 }
+
+function getMinMaxValues(series) {
 	
+	Object.keys(series).forEach(function (key) {
+    console.log(key)
+    var data=series[key]
+    for(var i = 0; i< data.length;i++) {
+      var value=data[i]
+    }
+	});
+	return {maxs:maxValues,mins:minValues}
+}	
+function manageMaxMin(value,key,maxValues,minValues) {
+	if (!isNaN(value)) {
+		if(maxValues[key] == undefined || maxValues[key]<value) {
+			maxValues[key]=value
+		}
+		if(minValues[key] == undefined || minValues[key]>value) {
+			minValues[key]=value
+		}
+	}
+
+}	
 function processMSDroidLog(series,data) {
 	var CaptureDateLine=data[1].substr(15,28)
 	CaptureDateLine=CaptureDateLine.replace("BST","GMT-1");
@@ -84,11 +111,16 @@ function processMSDroidLog(series,data) {
 		headers[i]=headers[i].trim()
 		series[headers[i]]=[];
 	}
-	var maxValues={}
-	var minValues={}
 
 	for (var i = 1 ; i < data.length;i++) {
 		var values=data[i].split('\t')
+		if(values.length <headers.length) {
+			console.log(data[i]);
+			continue
+		}
+		var minValues={}
+		var maxValues={}
+
 		for (var j=0;j<values.length;j++) {
 			
 			var seriesName=headers[j]
@@ -101,17 +133,8 @@ function processMSDroidLog(series,data) {
 				dataPoint.setSeconds(components[0]);
 				dataPoint.setMilliseconds(components[1]);
 			}
-
+			manageMaxMin(dataPoint,seriesName,maxValues,minValues)
 			series[seriesName].push(dataPoint)
-			
-			if (!isNaN(dataPoint)) {
-				if(maxValues[seriesName] == undefined || maxValues[seriesName]<dataPoint) {
-					maxValues[seriesName]=dataPoint
-				}
-				if(minValues[seriesName] == undefined || minValues[seriesName]>dataPoint) {
-					minValues[seriesName]=dataPoint
-				}
-			}
 		}
 	}
 	series.XAxis="Time"
@@ -147,14 +170,8 @@ function processTorqueLog(series,data) {
 				dataPoint=getTorqueTimeStamp(values[j])
 			}
 			series[seriesName].push(dataPoint)
-			if (!isNaN(dataPoint)) {
-				if(maxValues[seriesName] == undefined || maxValues[seriesName]<dataPoint) {
-					maxValues[seriesName]=dataPoint
-				}
-				if(minValues[seriesName] == undefined || minValues[seriesName]>dataPoint) {
-					minValues[seriesName]=dataPoint
-				}
-			}
+			manageMaxMin(dataPoint,seriesName,maxValues,minValues)
+
 		}
 	}
 	series.XAxis="Device Time"
@@ -164,6 +181,40 @@ function processTorqueLog(series,data) {
 	series.minValues=minValues
 
 	return series
+}
+
+function processWiPyLog(series,data) {
+	var headers=data[0].split(',')
+	for(var i = 0;i<headers.length;i++) {
+		headers[i]=headers[i].trim()
+		
+		series[headers[i]]=[];
+	}
+	var maxValues={}
+	var minValues={}
+	
+	for (var i = 1 ; i < data.length;i++) {
+		var values=data[i].split(',')
+		for (var j=0;j<values.length;j++) {
+			var dataPoint=Number(values[j])
+			var seriesName=headers[j]
+			if(seriesName==="Time") {
+				var numMillis=(dataPoint*1000)+946684800000
+				dataPoint=new Date(numMillis)
+			}
+			series[seriesName].push(dataPoint)
+			manageMaxMin(dataPoint,seriesName,maxValues,minValues)
+
+		}
+	}
+	series.XAxis="Time"
+	series.defaultSelections=["28ffcf7572150223","28ffeb73531502f2"]
+	series.headers=headers
+	series.maxValues=maxValues
+	series.minValues=minValues
+
+	return series
+
 }
 
 

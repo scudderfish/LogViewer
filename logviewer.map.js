@@ -1,4 +1,7 @@
 function constructMap() {
+	if(dataStore.lat==undefined || dataStore.lon==undefined) {
+		return;
+	}
 	var osmUrl='http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
 	var osmAttrib='Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
 	var osm = new L.TileLayer(osmUrl, {minZoom: 8, maxZoom: 20, attribution: osmAttrib});	
@@ -18,6 +21,10 @@ function constructMap() {
 }
 
 function updateMap(event, x, points, row, seriesName) {
+	if(dataStore.lat==undefined || dataStore.lon==undefined) {
+		return;
+	}
+
 	var lat = dataStore.lat[row]
 	var lon = dataStore.lon[row]
 	if(!isNaN(lat) && !isNaN(lon)) {
