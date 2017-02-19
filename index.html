@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name=viewport content="width=device-width, initial-scale=1">
+<script async src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/dygraph/2.0.0/dygraph.min.js"></script>
+<script async src="logviewer.data.js"></script>
+<script async src="logviewer.chart.js"></script>
+<script async src="logviewer.map.js"></script>
+<style>
+
+</style>
+
+<title>Torque Log Viewer</title>
+ </head>
+
+<body>
+
+
+<section id="dropTarget" ondrop="drop(event)" ondragover="allowDrop(event)">
+<div id='headings'>
+	<div >
+		
+		Select a text file or just drop one here: 
+		<input type="file" id="fileInput">
+		
+	</div>
+	<h2 id='CaptureDate'></h2>		
+</div>
+<div id='controls'>
+	<select class='seriesSelect' id='s1'></select>
+	<select class='seriesSelect' id='s2'></select>
+	<select class='seriesSelect' id='s3'></select>
+</div>
+<div id='controlscontrol'>
+	<button id="addSeriesBtn" onclick="addSeries()">Add Data Line</button>
+	<br />
+	<button id="removeSeriesBtn" onclick="removeSeries()">Remove Data Line</button>
+</div>
+</section>
+<section id ='chartDiv'></section>
+<section id="mapid"></section>
+</body>
+
+
+
+<script type="text/javascript">
+
+function loadFile(file){
+	var reader = new FileReader();
+	reader.onload = function(e) {
+		processData(reader.result);
+		setupSelectors()
+		setOptionDefaults("Engine RPM(rpm)","Throttle Position(Manifold)(%)","Intake Manifold Pressure(psi)")
+		resetChart()
+		constructMap()
+	}
+	reader.readAsText(file);	
+
+}
+window.onload = function() {
+		var fileInput = document.getElementById('fileInput');
+		var fileDisplayArea = document.getElementById('fileDisplayArea');
+
+		fileInput.addEventListener('change', function(e) {
+			var file = fileInput.files[0];
+			loadFile(file);
+		});
+		
+		
+}
+
+function setupSelectors() {
+	var selects = document.querySelectorAll('.seriesSelect')
+	for(var i=0;i<selects.length;i++){
+		selects[i].addEventListener('change',resetChart)
+		setOptions(selects[i],dataStore.dataSeries.headers)
+	}
+}
+
+
+
+function setCaptureDate(dte) {
+	document.getElementById('CaptureDate').innerText=dte;
+}
+
+function setOptions(select,list) {
+	while (select.options.length > 0) {
+        select.remove(select.options.length - 1);
+    }
+    for(var i=0;i<list.length;i++) {
+    	var opt = document.createElement('option');
+
+        opt.text = list[i];
+        opt.value = list[i];
+
+        select.add(opt, null);
+    }
+}
+function setOptionDefaults() {
+	var selects = document.querySelectorAll('.seriesSelect')
+	for(var i=0; i< selects.length && i < arguments.length;i++) {
+		selects[i].value = arguments[i]
+	}
+}
+
+function allowDrop(ev) {
+    ev.preventDefault();
+}
+
+function drag(ev) {
+    ev.dataTransfer.setData("text", ev.target.id);
+}
+
+function drop(ev) {
+    ev.preventDefault();
+
+	var dt = ev.dataTransfer;
+  	var files = dt.files;
+   	loadFile(files[0])
+}
+
+
+function numSeries() {
+	return document.querySelectorAll('.seriesSelect').length
+}
+
+function addSeries() {
+	if(numSeries() < 5) {
+		var controls=document.getElementById('controls')
+		var select=document.createElement('select')
+		select.className='seriesSelect';
+		select.addEventListener('change',resetChart)
+		setOptions(select,ui["dataSeries"]["headers"])
+		controls.appendChild(select)
+		resetChart()
+
+	}
+}
+function removeSeries() {
+	if(numSeries() > 2) {
+		var selectors=document.querySelectorAll('.seriesSelect');
+		var toDie=selectors[selectors.length-1]
+		toDie.parentNode.removeChild(toDie)		
+		resetChart()
+	}
+}
+
+</script>
+
+
+<noscript id="deferred-styles">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dygraph/2.0.0/dygraph.min.css" integrity="sha256-y5AaP/PGcK5D8H3WAWp4LTOE7qCYyphket0A3dCOwmk=" crossorigin="anonymous" />
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" />
+	<link rel="stylesheet" href="logviewer.css" />
+</noscript>
+
+<script>
+  var loadDeferredStyles = function() {
+    var addStylesNode = document.getElementById("deferred-styles");
+    var replacement = document.createElement("div");
+    replacement.innerHTML = addStylesNode.textContent;
+    document.body.appendChild(replacement)
+    addStylesNode.parentElement.removeChild(addStylesNode);
+  };
+  var raf = requestAnimationFrame || mozRequestAnimationFrame ||
+      webkitRequestAnimationFrame || msRequestAnimationFrame;
+  if (raf) raf(function() { window.setTimeout(loadDeferredStyles, 0); });
+  else window.addEventListener('load', loadDeferredStyles);
+</script>
+</html>
