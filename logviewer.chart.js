@@ -63,7 +63,6 @@ function resetChart() {
         	width:'100%',
         	showRangeSelector: true,
         	interactionModel: Dygraph.defaultInteractionModel,
-        	animatedZooms : true,
         	labels: labels,
         	legend: 'follow',
         	series: series,

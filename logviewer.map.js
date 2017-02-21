@@ -2,6 +2,9 @@ function constructMap() {
 	if(dataStore.lat==undefined || dataStore.lon==undefined) {
 		return;
 	}
+	if(!(dataStore.map==undefined)) {
+		dataStore.map.remove()
+	}
 	var osmUrl='http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
 	var osmAttrib='Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
 	var osm = new L.TileLayer(osmUrl, {minZoom: 8, maxZoom: 20, attribution: osmAttrib});	

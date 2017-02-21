@@ -5,6 +5,9 @@
 <script async src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js"></script>
 <script async src="https://cdnjs.cloudflare.com/ajax/libs/dygraph/2.0.0/dygraph.min.js"></script>
 <script async src="logviewer.data.js"></script>
+<script async src="logviewer.data.torque.js"></script>
+<script async src="logviewer.data.msdroid.js"></script>
+<script async src="logviewer.data.wipy.js"></script>
 <script async src="logviewer.chart.js"></script>
 <script async src="logviewer.map.js"></script>
 <style>
@@ -28,9 +31,6 @@
 	<h2 id='CaptureDate'></h2>		
 </div>
 <div id='controls'>
-	<select class='seriesSelect' id='s1'></select>
-	<select class='seriesSelect' id='s2'></select>
-	<select class='seriesSelect' id='s3'></select>
 </div>
 <div id='controlscontrol'>
 	<button id="addSeriesBtn" onclick="addSeries()">Add Data Line</button>
@@ -51,7 +51,6 @@ function loadFile(file){
 	reader.onload = function(e) {
 		processData(reader.result);
 		setupSelectors()
-		setOptionDefaults()
 		resetChart()
 		constructMap()
 	}
@@ -69,12 +68,28 @@ window.onload = function() {
 		
 		
 }
+function createNewSelector(defaultValue) {
+	var controls=document.getElementById('controls')
+	var select=document.createElement('select')
+	select.className='seriesSelect';
+	setOptions(select,dataStore.dataSeries.headers)
+	if(!(defaultValue == undefined)) {
+		select.value=defaultValue;
+	}
+	select.addEventListener('change',resetChart)
+	controls.appendChild(select)
+}
+
 
 function setupSelectors() {
-	var selects = document.querySelectorAll('.seriesSelect')
-	for(var i=0;i<selects.length;i++){
-		selects[i].addEventListener('change',resetChart)
-		setOptions(selects[i],dataStore.dataSeries.headers)
+	var selectors=document.querySelectorAll('.seriesSelect');
+	for (var i=0;i<selectors.length;i++) {
+		var toDie=selectors[i]
+		toDie.parentNode.removeChild(toDie)		
+	}
+  var defaults=dataStore.dataSeries.defaultSelections;	
+	for (var i=0;i<defaults.length;i++) {
+		createNewSelector(defaults[i]);	
 	}
 }
 
@@ -96,13 +111,6 @@ function setOptions(select,list) {
 
         select.add(opt, null);
     }
-}
-function setOptionDefaults() {
-	var selects = document.querySelectorAll('.seriesSelect')
-	var defaults=dataStore.dataSeries.defaultSelections;
-	for(var i=0; i< selects.length && i < defaults.length;i++) {
-		selects[i].value = defaults[i]
-	}
 }
 
 function allowDrop(ev) {
@@ -128,18 +136,13 @@ function numSeries() {
 
 function addSeries() {
 	if(numSeries() < 5) {
-		var controls=document.getElementById('controls')
-		var select=document.createElement('select')
-		select.className='seriesSelect';
-		select.addEventListener('change',resetChart)
-		setOptions(select,ui["dataSeries"]["headers"])
-		controls.appendChild(select)
+		createNewSelector(dataStore.dataSeries.defaultSelections[0])
 		resetChart()
 
 	}
 }
 function removeSeries() {
-	if(numSeries() > 2) {
+	if(numSeries() > 1) {
 		var selectors=document.querySelectorAll('.seriesSelect');
 		var toDie=selectors[selectors.length-1]
 		toDie.parentNode.removeChild(toDie)		
