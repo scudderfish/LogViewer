@@ -2,7 +2,7 @@ var Months = {
 	Jan : 0,
 	Feb : 1,
 	Mar : 2,
-	Apr : 3, 
+	Apr : 3,
 	May : 4,
 	Jun : 5,
 	Jul : 6,
@@ -29,7 +29,7 @@ function getTorqueTimeStamp(val) {
 	return dte
 }
 
-function processTorqueLog(series,data) {	
+function processTorqueLog(series,data) {
 	var maxValues={}
 	var minValues={}
 
@@ -38,7 +38,7 @@ function processTorqueLog(series,data) {
 		headers[i]=headers[i].trim()
 		series[headers[i]]=[];
 	}
-	
+
 	for (var i = 1 ; i < data.length;i++) {
 		var values=data[i].split(',')
 		for (var j=0;j<values.length;j++) {
@@ -60,6 +60,7 @@ function processTorqueLog(series,data) {
 	series.headers=headers
 	series.maxValues=maxValues
 	series.minValues=minValues
-
+    series.latKey='Latitude'
+    series.lonKey='Longitude'
 	return series
 }

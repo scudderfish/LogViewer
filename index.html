@@ -8,6 +8,7 @@
 <script async src="logviewer.data.torque.js"></script>
 <script async src="logviewer.data.msdroid.js"></script>
 <script async src="logviewer.data.wipy.js"></script>
+<script async src="logviewer.data.realdash.js"></script>
 <script async src="logviewer.chart.js"></script>
 <script async src="logviewer.map.js"></script>
 <style>
@@ -23,12 +24,12 @@
 <section id="dropTarget" ondrop="drop(event)" ondragover="allowDrop(event)">
 <div id='headings'>
 	<div >
-		
-		Select a text file or just drop one here: 
+
+		Select a text file or just drop one here:
 		<input type="file" id="fileInput">
-		
+
 	</div>
-	<h2 id='CaptureDate'></h2>		
+	<h2 id='CaptureDate'></h2>
 </div>
 <div id='controls'>
 </div>
@@ -54,7 +55,7 @@ function loadFile(file){
 		resetChart()
 		constructMap()
 	}
-	reader.readAsText(file);	
+	reader.readAsText(file);
 
 }
 window.onload = function() {
@@ -65,8 +66,8 @@ window.onload = function() {
 			var file = fileInput.files[0];
 			loadFile(file);
 		});
-		
-		
+
+
 }
 function createNewSelector(defaultValue) {
 	var controls=document.getElementById('controls')
@@ -85,11 +86,11 @@ function setupSelectors() {
 	var selectors=document.querySelectorAll('.seriesSelect');
 	for (var i=0;i<selectors.length;i++) {
 		var toDie=selectors[i]
-		toDie.parentNode.removeChild(toDie)		
+		toDie.parentNode.removeChild(toDie)
 	}
-  var defaults=dataStore.dataSeries.defaultSelections;	
+  var defaults=dataStore.dataSeries.defaultSelections;
 	for (var i=0;i<defaults.length;i++) {
-		createNewSelector(defaults[i]);	
+		createNewSelector(defaults[i]);
 	}
 }
 
@@ -145,7 +146,7 @@ function removeSeries() {
 	if(numSeries() > 1) {
 		var selectors=document.querySelectorAll('.seriesSelect');
 		var toDie=selectors[selectors.length-1]
-		toDie.parentNode.removeChild(toDie)		
+		toDie.parentNode.removeChild(toDie)
 		resetChart()
 	}
 }

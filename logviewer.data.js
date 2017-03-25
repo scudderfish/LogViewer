@@ -4,7 +4,8 @@ var LogTypeEnum = {
 	Unknown : 0,
 	MSDroid : 1,
 	Torque : 2,
-	WiPy : 3	
+	WiPy : 3,
+	RealDash : 4
 }
 
 var dataStore={}
@@ -18,32 +19,39 @@ function ascertainLogType(data) {
 		}
 		if(data[0].indexOf("GPS Time, Device Time, Longitude, Latitude")==0) {
 			return LogTypeEnum.Torque;
-		}	
+		}
 		if(data[0].indexOf("Time,")==0) {
 			return LogTypeEnum.WiPy;
-		}	
+		}
+		if(data[0].indexOf("Time\tEngine")==0) {
+			return LogTypeEnum.RealDash;
+		}
 	}
-	return LogTypeEnum.Unknown;	
+	return LogTypeEnum.Unknown;
 }
 
 
 function createSeries(data) {
 	var series= {};
 	series.logType = ascertainLogType(data)
-	
+
 	switch(series.logType) {
 		case LogTypeEnum.MSDroid:
 			processMSDroidLog(series,data)
 			break;
-			
+
 		case LogTypeEnum.Torque:
 			processTorqueLog(series,data)
-			break;	
-			
+			break;
+
 		case LogTypeEnum.WiPy:
 			processWiPyLog(series,data)
 			break;
-			
+
+		case LogTypeEnum.RealDash:
+			processRealDashLog(series,data)
+			break;
+
 	}
 	return series;
 }
@@ -57,7 +65,7 @@ function manageMaxMin(value,key,maxValues,minValues) {
 			minValues[key]=value
 		}
 	}
-}	
+}
 
 
 
@@ -65,8 +73,8 @@ function processData(data) {
 	var lines = data.split('\n');
 	var dataSeries = createSeries(lines)
 
-	var latitudes=dataSeries["Latitude"]
-	var longitudes=dataSeries["Longitude"]
+	var latitudes=dataSeries[dataSeries.latKey || "Latitude"]
+	var longitudes=dataSeries[dataSeries.lonKey || "Longitude"]
 	dataStore.lat=latitudes
 	dataStore.lon=longitudes
 	dataStore.dataSeries=dataSeries
