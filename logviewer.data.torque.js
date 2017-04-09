@@ -57,6 +57,7 @@ function processTorqueLog(series,data) {
 	}
 	series.XAxis="Device Time"
 	series.defaultSelections=["Engine RPM(rpm)","Throttle Position(Manifold)(%)","Intake Manifold Pressure(psi)"]
+	series.headerTranslations={}
 	series.headers=headers
 	series.maxValues=maxValues
 	series.minValues=minValues

@@ -37,6 +37,7 @@ function processWiPyLog(series,data) {
 
 	series.XAxis="Time"
 	series.defaultSelections=["28ff00cb721502ea","28ffeb73531502f2"]
+	series.headerTranslations={"28ff00cb721502ea" : "TopHose","28ffeb73531502f2":"BottomHose"}
 	series.headers=headers
 	series.maxValues=maxValues
 	series.minValues=minValues

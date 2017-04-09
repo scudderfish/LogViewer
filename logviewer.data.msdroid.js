@@ -39,6 +39,7 @@ function processMSDroidLog(series,data) {
 	}
 	series.XAxis="Time"
 	series.defaultSelections=["RPM","CLT","MAT"]
+	series.headerTranslations={}
 	series.headers=headers
 	series.maxValues=maxValues
 	series.minValues=minValues

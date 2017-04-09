@@ -39,6 +39,7 @@ function processRealDashLog(series,data) {
 	}
 	series.XAxis="Time"
 	series.defaultSelections=["RPM","Coolant Temperature","Intake Air Temperature"]
+	series.headerTranslations={}
 	series.headers=headers
 	series.maxValues=maxValues
 	series.minValues=minValues
