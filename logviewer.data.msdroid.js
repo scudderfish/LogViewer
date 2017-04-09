@@ -5,7 +5,7 @@ function processMSDroidLog(series,data) {
 
 	var CaptureDateLine=data[1].substr(15,28)
 	CaptureDateLine=CaptureDateLine.replace("BST","GMT-1");
-	
+
 	var startDate=new Date(CaptureDateLine)
 	data.splice(0,2)
 	var headers=data[0].split('\t')
@@ -22,7 +22,7 @@ function processMSDroidLog(series,data) {
 		}
 
 		for (var j=0;j<values.length;j++) {
-			
+
 			var seriesName=headers[j]
 			var dataPoint=Number(values[j]);
 
@@ -39,12 +39,11 @@ function processMSDroidLog(series,data) {
 	}
 	series.XAxis="Time"
 	series.defaultSelections=["RPM","CLT","MAT"]
-	series.headerTranslations={}
 	series.headers=headers
 	series.maxValues=maxValues
 	series.minValues=minValues
 
 	return series
-	
+
 }
 

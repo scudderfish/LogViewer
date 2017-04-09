@@ -1,5 +1,7 @@
 
 function processWiPyLog(series,data) {
+	var seriesTranslations={"28ff00cb721502ea" : "TopHose","28ffeb73531502f2":"BottomHose"}
+
 	var minValues={}
 	var maxValues={}
 
@@ -7,7 +9,7 @@ function processWiPyLog(series,data) {
 	var prevValue=[]
 	for(var i = 0;i<headers.length;i++) {
 		headers[i]=headers[i].trim()
-
+        headers[i]=seriesTranslations[headers[i]] || headers[i]
 		series[headers[i]]=[];
 		prevValue[i]=-1e38
 	}
@@ -24,7 +26,7 @@ function processWiPyLog(series,data) {
 			else{
 				var cv=dataPoint;
 				var pv=prevValue[j]
-				
+
 				if(pv != -1e38 && (cv > pv*2 || cv < pv*0.6)) {
 				    dataPoint=prevValue[j]
 			    }
@@ -36,8 +38,7 @@ function processWiPyLog(series,data) {
 	}
 
 	series.XAxis="Time"
-	series.defaultSelections=["28ff00cb721502ea","28ffeb73531502f2"]
-	series.headerTranslations={"28ff00cb721502ea" : "TopHose","28ffeb73531502f2":"BottomHose"}
+	series.defaultSelections=["TopHose","BottomHose"]
 	series.headers=headers
 	series.maxValues=maxValues
 	series.minValues=minValues

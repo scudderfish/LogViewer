@@ -73,7 +73,7 @@ function createNewSelector(defaultValue) {
 	var controls=document.getElementById('controls')
 	var select=document.createElement('select')
 	select.className='seriesSelect';
-	setOptions(select,dataStore.dataSeries.headers,dataStore.dataSeries.headerTranslations)
+	setOptions(select,dataStore.dataSeries.headers,dataStore)
 	if(!(defaultValue == undefined)) {
 		select.value=defaultValue;
 	}
@@ -100,14 +100,14 @@ function setCaptureDate(dte) {
 	document.getElementById('CaptureDate').innerText=dte;
 }
 
-function setOptions(select,list,translations) {
+function setOptions(select,list) {
 	while (select.options.length > 0) {
         select.remove(select.options.length - 1);
     }
     for(var i=0;i<list.length;i++) {
     	var opt = document.createElement('option');
 
-        opt.text = translations[list[i]] || list[i];
+        opt.text =  list[i];
         opt.value = list[i];
 
         select.add(opt, null);
