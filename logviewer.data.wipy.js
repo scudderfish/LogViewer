@@ -9,7 +9,7 @@ function processWiPyLog(series,data) {
 		headers[i]=headers[i].trim()
 
 		series[headers[i]]=[];
-		prevValue[i]=2000
+		prevValue[i]=-1e38
 	}
 
 	for (var i = 1 ; i < data.length;i++) {
@@ -22,10 +22,10 @@ function processWiPyLog(series,data) {
 				dataPoint=new Date(numMillis)
 			}
 			else{
-			    var diff = Math.abs(dataPoint-prevValue[j]);
-			    var roc = diff/prevValue[j];
-
-			    if(dataPoint > 20000 || roc > 5) {
+				var cv=dataPoint;
+				var pv=prevValue[j]
+				
+				if(pv != -1e38 && (cv > pv*2 || cv < pv*0.6)) {
 				    dataPoint=prevValue[j]
 			    }
 			}
