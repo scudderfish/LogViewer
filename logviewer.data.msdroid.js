@@ -16,7 +16,7 @@ function processMSDroidLog(series,data) {
 
 	for (var i = 1 ; i < data.length;i++) {
 		var values=data[i].split('\t')
-		if(values.length <headers.length) {
+		if(values.length <headers.length || Number.isNaN(Number.parseFloat(values[0]))) {
 			console.log(data[i]);
 			continue
 		}
