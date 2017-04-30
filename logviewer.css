@@ -1,50 +1,57 @@
-	#mapid { height: 480px; }
-	body {
-		font-size:75%;
-		color:#222;
-		background:#eee;
-		font-family:"Helvetica Neue", Arial, Helvetica, sans-serif;
-	}
-	section#dropTarget {
-	    height: 100px;
-	    margin: auto;
-	    padding: 10px;
-	    border:1px solid black;
-	}
-	section#chartDiv {
-		width: 100%;
+body {
+    font-size:75%;
+    color:#222;
+    background:#eee;
+    font-family:"Helvetica Neue", Arial, Helvetica, sans-serif;
+}
+section#dropTarget {
+    height: 100px;
+    margin: auto;
+    padding: 10px;
+    border:1px solid black;
+}
+div#headings {
+    width: 50%;
+    height: 100%;
+    float: left;
+}
+div#controls {
+    float:left;
+    height: 100%;
+    width:20%;
+}
+div#controlscontrol {
+    float:left;
+    height: 100%;
+    width:20%;
+}
+
+select {
+    width: 100%;
+    margin: 5px;
+}
+button {
+    float: right;
+    width: 80%;
+    margin: 5px;
+    width: 80%;
+}
+
+#chart {
+		width: 75%;
 		height: 480px;
-	}
-	div#headings {
-	    width: 50%;
-	    height: 100%;
-	    float: left;
-	}
-	div#controls {
-	    float:left;
-	    height: 100%;
-	    width:20%;
-	}
-	div#controlscontrol {
 		float:left;
-		height: 100%;
-		width:20%;
 	}
-	div#chartDiv { 
-		position: absolute; 
-		left: 200px; 
-		right: 10px; 
-		top: 150px; 
-		bottom: 10px; 
-		}
-		
-	select {
-		width: 100%;
-		margin: 5px;
-	}
-	button {
-		float: right;
-		width: 80%;
-		margin: 5px;
-		width: 80%;
-	}
+
+#map { height: 480px;
+    overflow: hidden;
+}
+
+
+@media screen and (max-width: 1023px) {
+   #chart {
+    float: none;
+    margin-right:0;
+    width:auto;
+  }
+}

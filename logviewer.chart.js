@@ -57,7 +57,7 @@ function resetChart() {
 	
   
  var g = new Dygraph(
-        document.getElementById("chartDiv"),  // containing div
+        document.getElementById("chart"),  // containing div
         data,
         {
         	width:'100%',

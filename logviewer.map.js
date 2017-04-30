@@ -19,7 +19,7 @@ function constructMap() {
 		}
 	}
 
-	dataStore.map=L.map('mapid').setView([origLat,origLon], 15).addLayer(osm);
+	dataStore.map=L.map('map').setView([origLat,origLon], 15).addLayer(osm);
 	dataStore.marker=L.marker([origLat,origLon]).addTo(dataStore.map)
 }
 
