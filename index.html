@@ -15,17 +15,18 @@
 
 </style>
 
-<title>Torque Log Viewer</title>
+<title>Car Log Viewer</title>
  </head>
 
 <body>
 
 
 <section id="dropTarget" ondrop="drop(event)" ondragover="allowDrop(event)">
+<div id='status'>
 <div id='headings'>
 	<div >
 
-		Select a text file or just drop one here:
+		Select a log file (MSL,CSV,TSV):
 		<input type="file" id="fileInput">
 
 	</div>
@@ -37,6 +38,7 @@
 	<button id="addSeriesBtn" onclick="addSeries()">Add Data Line</button>
 	<br />
 	<button id="removeSeriesBtn" onclick="removeSeries()">Remove Data Line</button>
+</div>
 </div>
 </section>
 <div id='wrapper'>
