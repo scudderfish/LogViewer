@@ -2,7 +2,8 @@ function processMSDroidLog(series,data) {
 
 	var minValues={}
 	var maxValues={}
-
+	var signature = data[0].replace(/"/g,"");
+	ga('send','pageview', {'dimension1': signature});
 	var CaptureDateLine=data[1].substr(15,28)
 	CaptureDateLine=CaptureDateLine.replace("BST","GMT-1");
 

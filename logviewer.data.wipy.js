@@ -1,6 +1,7 @@
 
 function processWiPyLog(series,data) {
 	var seriesTranslations={"28ff00cb721502ea" : "TopHose","28ffeb73531502f2":"BottomHose"}
+	ga('send','pageview', {'dimension1': 'WiPy'});
 
 	var minValues={}
 	var maxValues={}

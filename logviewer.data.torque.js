@@ -33,6 +33,8 @@ function processTorqueLog(series,data) {
 	var maxValues={}
 	var minValues={}
 
+	ga('send','pageview', {'dimension1': 'Torque'});
+
 	var headers=data[0].split(',')
 	for(var i = 0;i<headers.length;i++) {
 		headers[i]=headers[i].trim()
