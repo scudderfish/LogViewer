@@ -29,7 +29,9 @@ div#controlscontrol {
     height: 100%;
     width:20%;
 }
-
+div#wrapper {
+    background-color: #fff;
+    }
 select {
     margin: 5px;
 }
