@@ -109,12 +109,14 @@ function setOptions(select,list) {
         select.remove(select.options.length - 1);
     }
     for(var i=0;i<list.length;i++) {
-    	var opt = document.createElement('option');
+    	if(list[i] != 'Time') {
+			var opt = document.createElement('option');
 
-        opt.text =  list[i];
-        opt.value = list[i];
+			opt.text =  list[i];
+			opt.value = list[i];
 
-        select.add(opt, null);
+			select.add(opt, null);
+        }
     }
 }
 

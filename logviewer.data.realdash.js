@@ -3,10 +3,7 @@ function processRealDashLog(series,data) {
 	var minValues={}
 	var maxValues={}
 
-//	var CaptureDateLine=data[1].substr(15,28)
-//	CaptureDateLine=CaptureDateLine.replace("BST","GMT-1");
-
-//	var startDate=new Date(CaptureDateLine)
+	ga('send','pageview', {'dimension1': 'RealDash'});
     var startDate=new Date()
 	var headers=data[0].split('\t')
 	for(var i = 0;i<headers.length;i++) {
