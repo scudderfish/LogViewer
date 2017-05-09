@@ -31,8 +31,13 @@ function processMSDroidLog(series,data) {
 				var components=values[j].split('.')
 				//dataPoint=getDate(values[j])
 				dataPoint=new Date(startDate)
-				dataPoint.setSeconds(components[0]);
-				dataPoint.setMilliseconds(components[1]);
+				var seconds=Number(components[0])
+				var millis=Number(components[1])
+				if(seconds < 0) { 
+					millis=-millis
+				}
+				dataPoint.setSeconds(seconds);
+				dataPoint.setMilliseconds(millis);
 			}
 			manageMaxMin(dataPoint,seriesName,maxValues,minValues)
 			series[seriesName].push(dataPoint)
