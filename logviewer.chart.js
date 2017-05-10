@@ -71,12 +71,11 @@ function resetChart() {
         	series: series,
         	highlightCallback : updateMap,
         	axes: {
-              y: {
+              y1: {
                 axisLabelWidth: 60
               },
               y2: {
-                // set axis-related properties here
-                labelsKMB: true
+                axisLabelWidth: 60
               }
             },
          }                                   // the options
