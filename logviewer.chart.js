@@ -33,10 +33,7 @@ function resetChart() {
 	  for(var i =0; i<labels.length;i++) {
 	  	var label = labels[i]
 	  	series[label]={}
-	  	if(dataStore.dataSeries.maxValues[label]>1000) {
-	  		series[label]['axis']='y1'
-	  		console.log('Putting "'+label+'" on y1')
-	  	} else {
+	  	if(dataStore.dataSeries.maxValues[label]<=1000) {
 	  		series[label]['axis']='y2'
 	  		console.log('Putting "'+label+'" on y2')
 	  	}
@@ -71,7 +68,7 @@ function resetChart() {
         	series: series,
         	highlightCallback : updateMap,
         	axes: {
-              y1: {
+              y: {
                 axisLabelWidth: 60
               },
               y2: {
