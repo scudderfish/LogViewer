@@ -47,6 +47,10 @@ button {
 		height: 480px;
 		float:left;
 	}
+#chart .dygraph-legend {
+        background-color: rgba(255,255,255,0.7) !important;
+        left: 65px !important;
+}
 
 #map { height: 480px;
     overflow: hidden;
