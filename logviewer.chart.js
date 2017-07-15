@@ -43,15 +43,25 @@ function resetChart() {
 
 	var times=dataStore.dataSeries[dataStore.dataSeries.XAxis]
 	var data=[]
-	for (var i=0;i<dataStore.dataSeries[labels[0]].length;i++) {
+	if(labels.length > 0){
+	    var dataSniff = dataStore.dataSeries[labels[0]];
+	    if (!(dataSniff === undefined)) {
+            for (var i=0;i<dataStore.dataSeries[labels[0]].length;i++) {
 
-		var row=[times[i]];
-		for(var j=0;j<labels.length;j++) {
-			row.push(dataStore.dataSeries[labels[j]][i])
-		}
-		data.push(row)
-	}
-
+                var row=[times[i]];
+                for(var j=0;j<labels.length;j++) {
+                    var dataSource = dataStore.dataSeries[labels[j]];
+                    if(dataSource === undefined) {
+                        row.push(null)
+                    }
+                    else {
+                        row.push(dataSource[i])
+                    }
+                }
+                data.push(row)
+            }
+        }
+    }
 
 	labels.unshift(dataStore.dataSeries.XAxis)
 
