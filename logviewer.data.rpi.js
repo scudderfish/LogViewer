@@ -26,6 +26,7 @@ function processRPiLog(series,data) {
 			if(seriesName==="Time") {
 			    dataPoint=new Date(startDate)
 				dataPoint.setSeconds(values[j])
+				dataPoint.setMilliseconds(0);
 			}
 			else{
 				var cv=dataPoint;
