@@ -5,7 +5,8 @@ var LogTypeEnum = {
 	MSDroid : 1,
 	Torque : 2,
 	WiPy : 3,
-	RealDash : 4
+	RealDash : 4,
+	RPi		 : 5
 }
 
 var dataStore={}
@@ -25,6 +26,9 @@ function ascertainLogType(data) {
 		}
 		if(data[0].indexOf("Time\tEngine")==0) {
 			return LogTypeEnum.RealDash;
+		}
+		if(data[0].indexOf("LogStart\t")==0) {
+			return LogTypeEnum.RPi;
 		}
 	}
 	return LogTypeEnum.Unknown;
@@ -52,6 +56,9 @@ function createSeries(data) {
 			processRealDashLog(series,data)
 			break;
 
+		case LogTypeEnum.RPi:
+			processRPiLog(series,data)
+			break;
 	}
 	return series;
 }

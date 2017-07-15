@@ -64,9 +64,11 @@ function resetChart() {
         	showRangeSelector: true,
         	interactionModel: Dygraph.defaultInteractionModel,
         	labels: labels,
-        	legend: 'follow',
+        	legend: 'always',
+        	labelsSeparateLines: true,
         	series: series,
         	highlightCallback : updateMap,
+        	hideOverlayOnMouseOut: false,
         	axes: {
               y: {
                 axisLabelWidth: 60
