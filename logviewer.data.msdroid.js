@@ -4,10 +4,12 @@ function processMSDroidLog(series,data) {
 	var maxValues={}
 	var signature = data[0].replace(/"/g,"");
 	ga('send','pageview', {'dimension1': signature});
-	var CaptureDateLine=data[1].substr(15,28)
-	CaptureDateLine=CaptureDateLine.replace("BST","GMT-1");
-
-	var startDate=new Date(CaptureDateLine)
+	var CaptureDateLine=data[1].replace(/"/g,'')
+	var colonIndex=CaptureDateLine.indexOf(':')
+	var dateString = CaptureDateLine.substr(colonIndex+2)
+	var dateComponents = dateString.split(' ')
+	dateString=dateComponents[0]+' ' +dateComponents[1]+' ' +dateComponents[2]+' ' +dateComponents[3]+' ' +dateComponents[5];
+	var startDate=new Date(dateString)
 	data.splice(0,2)
 	var headers=data[0].split('\t')
 	for(var i = 0;i<headers.length;i++) {
