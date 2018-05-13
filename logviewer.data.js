@@ -6,7 +6,8 @@ var LogTypeEnum = {
 	Torque : 2,
 	WiPy : 3,
 	RealDash : 4,
-	RPi		 : 5
+	RPi		 : 5,
+	GPX		: 6
 }
 
 var dataStore={}
@@ -29,6 +30,9 @@ function ascertainLogType(data) {
 		}
 		if(data[0].indexOf("LogStart\t")==0) {
 			return LogTypeEnum.RPi;
+		}
+		if(data[0].indexOf("gpx.xsd") != -1) {
+			return LogTypeEnum.GPX;
 		}
 	}
 	return LogTypeEnum.Unknown;
@@ -58,6 +62,10 @@ function createSeries(data) {
 
 		case LogTypeEnum.RPi:
 			processRPiLog(series,data)
+			break;
+
+		case LogTypeEnum.GPX:
+			processGPXLog(series,data);
 			break;
 	}
 	return series;
