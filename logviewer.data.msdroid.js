@@ -1,30 +1,38 @@
 function processMSDroidLog(series,data) {
 
-	var minValues={}
-	var maxValues={}
+	const minValues = {}
+	const maxValues = {}
 
-	var CaptureDateLine=data[1].substr(15,28)
+	let CaptureDateLine = data[1].substr(15, 28)
 	CaptureDateLine=CaptureDateLine.replace("BST","GMT-1");
 	
-	var startDate=new Date(CaptureDateLine)
-	data.splice(0,2)
-	var headers=data[0].split('\t')
-	for(var i = 0;i<headers.length;i++) {
+	const startDate = new Date(CaptureDateLine)
+
+	while (data[0].indexOf('\t') === -1) {
+		data.splice(0, 1);
+	}
+
+
+	const headers = data[0].split('\t')
+	for (let i = 0; i < headers.length; i++) {
 		headers[i]=headers[i].trim()
 		series[headers[i]]=[];
 	}
 
-	for (var i = 1 ; i < data.length;i++) {
-		var values=data[i].split('\t')
+	for (let i = 1; i < data.length; i++) {
+		const values = data[i].split('\t')
 		if(values.length <headers.length) {
 			console.log(data[i]);
 			continue
 		}
 
-		for (var j=0;j<values.length;j++) {
+		if (isNaN(Number(values[0]))) {
+			continue;
+		}
+		for (let j = 0; j < values.length; j++) {
 			
-			var seriesName=headers[j]
-			var dataPoint=Number(values[j]);
+			const seriesName = headers[j]
+			let dataPoint = Number(values[j]);
 
 			if(seriesName==="Time") {
 				var components=values[j].split('.')
@@ -38,7 +46,7 @@ function processMSDroidLog(series,data) {
 		}
 	}
 	series.XAxis="Time"
-	series.defaultSelections=["RPM","CLT","MAT"]
+	series.defaultSelections = ["RPM", "CLT", "IAT"]
 	series.headers=headers
 	series.maxValues=maxValues
 	series.minValues=minValues
