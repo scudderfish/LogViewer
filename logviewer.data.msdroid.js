@@ -10,7 +10,9 @@ function processMSDroidLog(series,data) {
 	var dateComponents = dateString.split(' ')
 	dateString=dateComponents[0]+' ' +dateComponents[1]+' ' +dateComponents[2]+' ' +dateComponents[3]+' ' +dateComponents[5];
 	var startDate=new Date(dateString)
-	data.splice(0,2)
+	while (data[0].indexOf('\t') === -1) {
+		data.splice(0, 1)
+	}
 	var headers=data[0].split('\t')
 	for(var i = 0;i<headers.length;i++) {
 		headers[i]=headers[i].trim()
