@@ -10,7 +10,9 @@ var LogTypeEnum = {
 	GPX		: 6
 }
 
-var dataStore={}
+var dataStore={
+	g:null
+}
 
 
 
