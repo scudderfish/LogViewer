@@ -58,6 +58,11 @@ function resetChart() {
 			for (var i = 0; i < dataStore.dataSeries[labels[0]].length; i++) {
 
 				var row = [times[i]];
+
+				
+
+
+
 				for (var j = 0; j < labels.length; j++) {
 					var dataSource = dataStore.dataSeries[labels[j]];
 					if (dataSource === undefined) {

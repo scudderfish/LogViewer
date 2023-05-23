@@ -11,7 +11,7 @@ var LogTypeEnum = {
 }
 
 var dataStore={
-	g:null
+	
 }
 
 
