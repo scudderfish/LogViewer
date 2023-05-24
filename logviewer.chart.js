@@ -41,9 +41,9 @@ function resetChart() {
 	const logdiff = Math.log10(maxdiff) - Math.log10(mindiff)
 	if (logdiff >= 2) {//We need more axis
 		for (let i = 0; i < seriesNames.length; i++) {
-			var label = seriesNames[i]
-			series[seriesNames] = {}
-			if (dataStore.dataSeries.maxValues[seriesNames] <= 1000) {
+			const label = seriesNames[i]
+			series[label] = {}
+			if (dataStore.dataSeries.maxValues[label] <= 1000) {
 				series[label]['axis'] = 'y2'
 				console.log('Putting "' + label + '" on y2')
 			}
