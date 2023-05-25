@@ -81,6 +81,7 @@ function resetChart() {
 
 
 	const options = {
+		file: data,
 		width: '100%',
 		showRangeSelector: true,
 		interactionModel: Dygraph.defaultInteractionModel,
