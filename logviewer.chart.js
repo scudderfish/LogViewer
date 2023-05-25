@@ -37,7 +37,8 @@ function resetChart() {
 
 	var mindiff = Math.min.apply(Math, diffs)
 	var maxdiff = Math.max.apply(Math, diffs)
-	var logdiff = Math.log10(maxdiff) - Math.log10(mindiff)
+	var logdiff = Math.log10(maxdiff - mindiff);
+	console.log(`logdiff ${logdiff}`)
 	if (logdiff >= 2) {//We need more axis
 		for (var i = 0; i < labels.length; i++) {
 			var label = labels[i]
@@ -86,8 +87,9 @@ function resetChart() {
 		showRangeSelector: true,
 		interactionModel: Dygraph.defaultInteractionModel,
 		labels: labels,
-		legend: 'follow',
+		legend: 'always',
 		series: series,
+		labelsSeparateLines: true,
 		highlightCallback: updateMap,
 		axes: {
 			y: {
