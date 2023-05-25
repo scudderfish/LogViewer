@@ -88,13 +88,11 @@ function manageMaxMin(value,key,maxValues,minValues) {
 
 function processData(data) {
 	var lines = data.split('\n');
-	var dataSeries = createSeries(lines);
+	var dataSeries = createSeries(lines)
 
-	const latitudeField = dataSeries.latKey || "Latitude";
-	const longitudeField = dataSeries.lonKey || "Longitude";
-
-
-	dataStore.latIdx = dataSeries.headers.indexOf(latitudeField);
-	dataStore.lonIdx = dataSeries.headers.indexOf(longitudeField);
-	dataStore.dataSeries = dataSeries;
+	var latitudes=dataSeries[dataSeries.latKey || "Latitude"]
+	var longitudes=dataSeries[dataSeries.lonKey || "Longitude"]
+	dataStore.lat=latitudes
+	dataStore.lon=longitudes
+	dataStore.dataSeries=dataSeries
 }

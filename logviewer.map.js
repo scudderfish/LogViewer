@@ -1,6 +1,5 @@
 function constructMap() {
-	if (dataStore.latIdx == undefined || dataStore.lonIdx == undefined) {
-		debugger
+	if(dataStore.lat==undefined || dataStore.lon==undefined) {
 		return;
 	}
 	if(!(dataStore.map==undefined)) {
@@ -12,10 +11,10 @@ function constructMap() {
 
 	var origLat=51.505;
 	var origLon=-0.09;
-	for (var i = 0; i < dataStore.dataSeries.data.length; i++) {
-		if (!isNaN(dataStore.dataSeries.data[i][dataStore.latIdx]) && !isNaN(dataStore.dataSeries.data[i][dataStore.lonIdx])) {
-			origLat = dataStore.dataSeries.data[i][dataStore.latIdx];
-			origLon = dataStore.dataSeries.data[i][dataStore.lonIdx];
+	for(var i=0;i<dataStore.lat.length;i++){
+		if(!isNaN(dataStore.lat[i]) && !isNaN(dataStore.lon[i])) {
+			origLat=dataStore.lat[i];
+			origLon=dataStore.lon[i];
 			break;
 		}
 	}
@@ -25,14 +24,14 @@ function constructMap() {
 }
 
 function updateMap(event, x, points, row, seriesName) {
-	if (dataStore.latIdx == undefined || dataStore.lonIdx == undefined) {
+	if(dataStore.lat==undefined || dataStore.lon==undefined) {
 		return;
 	}
 
-	const lat = dataStore.dataSeries.data[row][dataStore.latIdx];
-	const lon = dataStore.dataSeries.data[row][dataStore.lonIdx];
+	var lat = dataStore.lat[row]
+	var lon = dataStore.lon[row]
 	if(!isNaN(lat) && !isNaN(lon)) {
-		dataStore.map.panTo([lat, lon]);
-		dataStore.marker.setLatLng([lat, lon]);
+		dataStore.map.panTo([lat,lon])
+		dataStore.marker.setLatLng([lat,lon])
 	}
 }

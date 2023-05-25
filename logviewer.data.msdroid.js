@@ -13,8 +13,11 @@ function processMSDroidLog(series,data) {
 	while (data[0].indexOf('\t') === -1) {
 		data.splice(0, 1)
 	}
-	const headers = data[0].split('\t')
-	series.data = [];
+	var headers=data[0].split('\t')
+	for(var i = 0;i<headers.length;i++) {
+		headers[i]=headers[i].trim()
+		series[headers[i]]=[];
+	}
 
 	for (var i = 1 ; i < data.length;i++) {
 		var values=data[i].split('\t')
@@ -23,12 +26,10 @@ function processMSDroidLog(series,data) {
 			continue
 		}
 
-		const row = [];
-
 		for (var j=0;j<values.length;j++) {
 
-			const seriesName = headers[j]
-			let dataPoint = Number(values[j]);
+			var seriesName=headers[j]
+			var dataPoint=Number(values[j]);
 
 			if(seriesName==="Time") {
 				var components=values[j].split('.')
@@ -43,9 +44,8 @@ function processMSDroidLog(series,data) {
 				dataPoint.setMilliseconds(millis);
 			}
 			manageMaxMin(dataPoint,seriesName,maxValues,minValues)
-			row.push(dataPoint)
+			series[seriesName].push(dataPoint)
 		}
-		series.data.push(row);
 	}
 	series.XAxis="Time"
 	series.defaultSelections=["RPM","CLT","MAT"]
