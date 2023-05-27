@@ -61,10 +61,6 @@ function resetChart() {
 
 				var row = [times[i]];
 
-				
-
-
-
 				for (var j = 0; j < labels.length; j++) {
 					var dataSource = dataStore.dataSeries[labels[j]];
 					if (dataSource === undefined) {
@@ -85,6 +81,7 @@ function resetChart() {
 	const options = {
 		file: data,
 		width: '100%',
+		colors: ['#e41a1c','#377eb8','#4daf4a','#984ea3','#ff7f00','#ffff33','#a65628'],
 		showRangeSelector: true,
 		interactionModel: Dygraph.defaultInteractionModel,
 		labels: labels,
