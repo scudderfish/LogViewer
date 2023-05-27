@@ -32,6 +32,7 @@ function resetChart() {
 	console.log("Reset chart")
 	var labels = getLabels();
 
+	setCookie("selections",JSON.stringify(labels),365)
 	var series = {}
 	var diffs = getDiffs(labels)
 
