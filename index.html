@@ -90,18 +90,17 @@
 		controls.appendChild(select)
 	}
 
-
-	function setupSelectors() {
-		var selectors = document.querySelectorAll('.seriesSelect');
-		for (var i = 0; i < selectors.length; i++) {
-			var toDie = selectors[i]
-			toDie.parentNode.removeChild(toDie)
-		}
-		var defaults = dataStore.dataSeries.defaultSelections;
-		for (var i = 0; i < defaults.length; i++) {
-			createNewSelector(defaults[i]);
-		}
+function setupSelectors() {
+	const selectors=document.querySelectorAll('.series  Select');
+	for (let i=0;i<selectors.length;i++) {
+		let toDie=selectors[i]
+		toDie.parentNode.removeChild(toDie)
 	}
+  const defaults=JSON.parse(getCookie("selections")) || dataStore.dataSeries.defaultSelections;
+	for (let i=0;i<defaults.length;i++) {
+		createNewSelector(defaults[i]);
+	}
+}
 
 
 
@@ -146,10 +145,10 @@
 		return document.querySelectorAll('.seriesSelect').length
 	}
 
-	function addSeries() {
-		if (numSeries() < 9) {
-			createNewSelector(dataStore.dataSeries.defaultSelections[0])
-			resetChart()
+function addSeries() {
+	if(numSeries() < 9) {
+		createNewSelector("")
+		resetChart()
 
 		}
 	}
