@@ -90,17 +90,17 @@
 		controls.appendChild(select)
 	}
 
-function setupSelectors() {
-	const selectors=document.querySelectorAll('.series  Select');
-	for (let i=0;i<selectors.length;i++) {
-		let toDie=selectors[i]
-		toDie.parentNode.removeChild(toDie)
+	function setupSelectors() {
+		const selectors = document.querySelectorAll('.seriesSelect');
+		for (let i = 0; i < selectors.length; i++) {
+			let toDie = selectors[i]
+			toDie.parentNode.removeChild(toDie)
+		}
+		const defaults = JSON.parse(getCookie("selections")) || dataStore.dataSeries.defaultSelections;
+		for (let i = 0; i < defaults.length; i++) {
+			createNewSelector(defaults[i]);
+		}
 	}
-  const defaults=JSON.parse(getCookie("selections")) || dataStore.dataSeries.defaultSelections;
-	for (let i=0;i<defaults.length;i++) {
-		createNewSelector(defaults[i]);
-	}
-}
 
 
 
@@ -145,10 +145,10 @@ function setupSelectors() {
 		return document.querySelectorAll('.seriesSelect').length
 	}
 
-function addSeries() {
-	if(numSeries() < 9) {
-		createNewSelector("")
-		resetChart()
+	function addSeries() {
+		if (numSeries() < 9) {
+			createNewSelector("")
+			resetChart()
 
 		}
 	}
