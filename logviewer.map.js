@@ -5,13 +5,13 @@ function constructMap() {
 	if(!(dataStore.map==undefined)) {
 		dataStore.map.remove()
 	}
-	var osmUrl='http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-	var osmAttrib='Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
-	var osm = new L.TileLayer(osmUrl, {minZoom: 8, maxZoom: 20, attribution: osmAttrib});	
+	const osmUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+	const osmAttrib = 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors';
+	const osm = new L.TileLayer(osmUrl, { minZoom: 8, maxZoom: 20, attribution: osmAttrib });	
 
-	var origLat=51.505;
-	var origLon=-0.09;
-	for(var i=0;i<dataStore.lat.length;i++){
+	let origLat = 51.505;
+	let origLon = -0.09;
+	for (let i = 0; i < dataStore.lat.length; i++) {
 		if(!isNaN(dataStore.lat[i]) && !isNaN(dataStore.lon[i])) {
 			origLat=dataStore.lat[i];
 			origLon=dataStore.lon[i];
@@ -28,8 +28,8 @@ function updateMap(event, x, points, row, seriesName) {
 		return;
 	}
 
-	var lat = dataStore.lat[row]
-	var lon = dataStore.lon[row]
+	const lat = dataStore.lat[row]
+	const lon = dataStore.lon[row]
 	if(!isNaN(lat) && !isNaN(lon)) {
 		dataStore.map.panTo([lat,lon])
 		dataStore.marker.setLatLng([lat,lon])

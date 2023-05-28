@@ -55,7 +55,7 @@
 <script type="text/javascript">
 
 	function loadFile(file) {
-		var reader = new FileReader();
+		const reader = new FileReader();
 		reader.onload = function (e) {
 			processData(reader.result);
 			g?.destroy();
@@ -68,19 +68,19 @@
 
 	}
 	window.onload = function () {
-		var fileInput = document.getElementById('fileInput');
-		var fileDisplayArea = document.getElementById('fileDisplayArea');
+		const fileInput = document.getElementById('fileInput');
+		const fileDisplayArea = document.getElementById('fileDisplayArea');
 
 		fileInput.addEventListener('change', function (e) {
-			var file = fileInput.files[0];
+						const file = fileInput.files[0];
 			loadFile(file);
 		});
 
 
 	}
 	function createNewSelector(defaultValue) {
-		var controls = document.getElementById('controls')
-		var select = document.createElement('select')
+		const controls = document.getElementById('controls')
+		const select = document.createElement('select')
 		select.className = 'seriesSelect';
 		setOptions(select, dataStore.dataSeries.headers, dataStore)
 		if (!(defaultValue == undefined)) {

@@ -1,66 +1,66 @@
 body {
-    font-size:75%;
-    color:#222;
-    background:#eee;
-    font-family:"Helvetica Neue", Arial, Helvetica, sans-serif;
+  font-size: 75%;
+  color: #222;
+  background: #eee;
+  font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
 }
 section#dropTarget {
-    min-height: 100px;
-    margin: auto;
-    padding: 10px;
-    border:1px solid black;
+  min-height: 100px;
+  margin: auto;
+  padding: 10px;
+  border: 1px solid black;
 }
 div#status {
-    height: 100px;
-    }
+  height: 100px;
+}
 div#headings {
-    width: 20%;
-    height: 100%;
-    float: left;
+  width: 20%;
+  height: 100%;
+  float: left;
 }
 div#controls {
-    float:left;
-    height: 100%;
-    width:60%;
-    overflow: hidden;
+  float: left;
+  height: 100%;
+  width: 60%;
+  overflow: hidden;
 }
 div#controlscontrol {
-    float:left;
-    height: 100%;
-    width:20%;
+  float: left;
+  height: 100%;
+  width: 20%;
 }
 div#wrapper {
-    background-color: #fff;
-    }
+  background-color: #fff;
+}
 select {
-    margin: 5px;
+  margin: 5px;
 }
 button {
-    float: right;
-    width: 80%;
-    margin: 5px;
-    width: 80%;
+  float: right;
+  width: 80%;
+  margin: 5px;
+  width: 80%;
 }
 
 #chart {
-		width: 75%;
-		height: 480px;
-		float:left;
-	}
+  width: 75%;
+  height: 480px;
+  float: left;
+}
 #chart .dygraph-legend {
-        background-color: rgba(255,255,255,0.7) !important;
-        left: 65px !important;
+  background-color: rgba(255, 255, 255, 0.7) !important;
+  left: 65px !important;
 }
 
-#map { height: 480px;
-    overflow: hidden;
+#map {
+  height: 480px;
+  overflow: hidden;
 }
-
 
 @media screen and (max-width: 1023px) {
-   #chart {
+  #chart {
     float: none;
-    margin-right:0;
-    width:auto;
+    margin-right: 0;
+    width: auto;
   }
 }
