@@ -73,16 +73,21 @@ function createSeries(data) {
 	return series;
 }
 
-function manageMaxMin(value,key,maxValues,minValues) {
-	if (!isNaN(value)) {
-		if(maxValues[key] == undefined || maxValues[key]<value) {
-			maxValues[key]=value
-		}
-		if(minValues[key] == undefined || minValues[key]>value) {
-			minValues[key]=value
-		}
-	}
+function manageMaxMin(value, key, maxValues, minValues) {
+    if (!isNaN(value)) {
+        const currentMax = maxValues[key];
+        const currentMin = minValues[key];
+
+        if ( value > currentMax) {
+            maxValues[key] = value;
+        }
+
+        if (value < currentMin) {
+            minValues[key] = value;
+        }
+    }
 }
+
 
 
 

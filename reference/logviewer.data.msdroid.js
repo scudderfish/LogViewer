@@ -1,26 +1,30 @@
 function processMSDroidLog(series,data) {
 
-	var minValues={}
-	var maxValues={}
-	var signature = data[0].replace(/"/g,"");
-	ga('send','pageview', {'dimension1': signature});
-	var CaptureDateLine=data[1].replace(/"/g,'')
-	var colonIndex=CaptureDateLine.indexOf(':')
-	var dateString = CaptureDateLine.substr(colonIndex+2)
-	var dateComponents = dateString.split(' ')
+	const minValues={}
+	const maxValues={}
+	const signature = data[0].replace(/"/g,"");
+	//ga('send','pageview', {'dimension1': signature});
+	const CaptureDateLine=data[1].replace(/"/g,'')
+	const colonIndex=CaptureDateLine.indexOf(':')
+	let dateString = CaptureDateLine.substr(colonIndex+2)
+	const dateComponents = dateString.split(' ')
 	dateString=dateComponents[0]+' ' +dateComponents[1]+' ' +dateComponents[2]+' ' +dateComponents[3]+' ' +dateComponents[5];
-	var startDate=new Date(dateString)
+	const startDate=new Date(dateString)
 	while (data[0].indexOf('\t') === -1) {
 		data.splice(0, 1)
 	}
-	var headers=data[0].split('\t')
-	for(var i = 0;i<headers.length;i++) {
+	const headers=data[0].split('\t')
+	for(let i = 0;i<headers.length;i++) {
 		headers[i]=headers[i].trim()
 		series[headers[i]]=[];
 	}
 
-	for (var i = 1 ; i < data.length;i++) {
-		var values=data[i].split('\t')
+	headers.forEach(h=>{
+		minValues[h]=Number.MAX_SAFE_INTEGER;
+		maxValues[h]=Number.MIN_SAFE_INTEGER;
+	})
+	for (let i = 1 ; i < data.length;i++) {
+		const values=data[i].split('\t')
 		if(values.length <headers.length || Number.isNaN(Number.parseFloat(values[0]))) {
 			console.log(data[i]);
 			continue
