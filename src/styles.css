@@ -1,0 +1,27 @@
+#wrapper {
+    display: flex;
+}
+
+#left {
+    background-color: bisque;
+    flex: 0 0 50%;
+    height: 50vh;
+    }
+
+#right {
+    height: 50vh;
+    flex: 1;
+    background-color: blue;
+}
+
+
+#chart-container {
+    flex: 0 0 90%;
+    height: 50vh;
+    border: 2px;
+    
+}
+#controls {
+    flex: 1;
+
+}

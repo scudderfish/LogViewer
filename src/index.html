@@ -1,50 +1,46 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="cache-control" content="no-cache" />
-    <meta http-equiv="pragma" content="no-cache" />
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-    <meta name="viewport"
-        content="width=device-width,user-scalable=0,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">
-    <style>
-        #wrapper {
-            display: flex;
-        }
-
-        #left {
-            background-color: bisque;
-            flex: 0 0 50%;
-            height:300px;
-        }
-
-        #right {
-            flex: 1;
-            background-color: blue;
-        }
-
-
-        #chart-container {
-            /* width: 50%; */
-            height: 300px;
-            border: 2px;
-            background-color: red;
-        }
-
-        body {
-            background-color: aqua;
-        }
-    </style>
+    <meta charset="utf-8" />
+    <title>Logviewer</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script type="module" src="app.js"></script>
 </head>
-<h1 class="page-title">HOMEPAGE</h1>
 
-<div id="chart-container"></div>
+<body>
 
-<div id="wrapper">
-    <div id="left">Left side div</div>
-    <div id="right">Right side div</div>
-  </div>
+    <div id="wrapper">
+ 
+    <div id="chart-container"></div>
+    <div id="controls">
+        <section id="dropTarget" ondrop="drop(event)" ondragover="allowDrop(event)">
+            <div id='status'>
+                <div id='headings'>
+                    <div>
+    
+                        Select a log file (MSL,CSV,TSV):
+                        <input type="file" id="fileInput">
+    
+                    </div>
+                    <h2 id='CaptureDate'></h2>
+                </div>
+                <div id='controls'>
+                </div>
+                <div id='controlscontrol'>
+                    <button id="addSeriesBtn" onclick="addSeries()">Add Data Line</button>
+                    <br />
+                    <button id="removeSeriesBtn" onclick="removeSeries()">Remove Data Line</button>
+                </div>
+            </div>
+        </section>
+    
+    </div>
+    </div>
+    <div id="wrapper">
+        <div id="left">Left side div</div>
+        <div id="right">Right side div</div>
+    </div>
 
 </body>
 
