@@ -1,5 +1,6 @@
 import * as echarts from 'echarts';
 import 'echarts-gl';
+import { tune } from './CurrentTune';
 
 
 
@@ -12,20 +13,35 @@ var app = {};
 
 var option;
 
+const parser = new DOMParser();
+const doc = parser.parseFromString(tune, "application/xml");
+let veTable=[];
+doc.querySelector("constant[name='veTable']").lastChild.data.split("\n").filter(a=>a.length).forEach(e=>{veTable.push(e.trim().split(" ").map(Number))})
+veTable=veTable.filter(r=>r.length>2);
+let rpmBins = doc.querySelector("constant[name='rpmBins']").lastChild.data.split("\n").map(e=>e.trim()).filter(a=>a.length).map(Number);
+let loadBins=doc.querySelector("constant[name='fuelLoadBins']").lastChild.data.split("\n").map(e=>e.trim()).filter(a=>a.length).map(Number);
+
+console.log(rpmBins);
+console.log(loadBins);
+
+const data = [];
+veTable.forEach((row,i) => {
+  row.forEach((col,j)=> {
+    data.push([rpmBins[i],loadBins[j],col])
+  })
+});
+console.log(data);
+
+
 option = {
   tooltip: {
-    alwaysShowContent:true,
-    trigger: 'axis',
-        position: function (pt) {
-            return [pt[0], '10%'];
-        }
   },
   backgroundColor: '#fff',
   visualMap: {
     show: false,
     dimension: 2,
-    min: -1,
-    max: 1,
+    min: 0,
+    max: 100,
     inRange: {
       color: [
         '#313695',
@@ -62,20 +78,8 @@ option = {
       wireframe: {
         // show: false
       },
-      equation: {
-        x: {
-          step: 0.05
-        },
-        y: {
-          step: 0.05
-        },
-        z: function (x, y) {
-          if (Math.abs(x) < 0.1 && Math.abs(y) < 0.1) {
-            return '-';
-          }
-          return Math.sin(x * Math.PI) * Math.sin(y * Math.PI);
-        }
-      }
+      dataShape:[16,16],
+      data:data
     }
   ]
 };
@@ -88,4 +92,11 @@ myChart.dispatchAction({
   value:[0,0,0.5],
   });
 window.addEventListener('resize', myChart.resize);
+
+
+
+
+
+
+
 

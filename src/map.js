@@ -27,7 +27,6 @@ marker.addTo(map);
 
 
 addEventListener("IndexUpdate",e=>{
-  console.log(e.detail);
   if(!!dataStore && !!dataStore.lat & !!dataStore.lon) {
     const lat=dataStore.lat[e.detail.dataIndex];
     const lon = dataStore.lon[e.detail.dataIndex];
