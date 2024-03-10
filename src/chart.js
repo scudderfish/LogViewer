@@ -9,6 +9,14 @@ const option = {
         trigger: 'axis',
         position: function (pt) {
             return [pt[0], '10%'];
+        },
+        formatter:function(param) {
+            let html="";
+            param.forEach(e=>{
+                html+=`${e.marker} ${e.seriesName} ${e.value} ${e.dataIndex}<br/>`;
+            })
+            dispatchEvent(new CustomEvent("IndexUpdate",{detail:{dataIndex:param[0].dataIndex,desc:html}}));
+            return html;
         }
     },
     title: {
@@ -35,26 +43,18 @@ const option = {
             end: 10
         }
     ],
-    //   series: [
-    //     {
-    //       name: 'Fake Data',
-    //       type: 'line',
-    //       symbol: 'none',
-    //       sampling: 'lttb',
-    //       itemStyle: {
-    //         color: 'rgb(0, 0, 0)'
-    //       },
-    //       data: data
-    //     }
-    //   ]
+    
 };
 
 option && myChart.setOption(option);
 
-export function updateLineChart(selected) {
-    console.log(dataStore);
 
-    console.log(selected);
+
+
+export function updateLineChart(selected) {
+    // console.log(dataStore);
+
+    // console.log(selected);
 
     const newOptions = {};
 
@@ -71,7 +71,7 @@ export function updateLineChart(selected) {
             name:s,
             type:'line',
             symbol: 'none',
-            sampling:'lttb',
+//            sampling:'lttb',
             data:dataStore.dataSeries[s],
             yAxisIndex:i,
         })
@@ -88,4 +88,18 @@ export function updateLineChart(selected) {
     newOptions.series=series;
     newOptions.yAxis=yAxis;
     myChart.setOption(newOptions, false, false);
+
+    // myChart.getZr().on('mousemove',function(params){
+    //     console.log("mousemove");
+    //     console.log(params);
+    // })
+    // myChart.on('mouseover',function(params){
+    //     console.log("mouseover");
+    //     console.log(params);
+    // })
+
+    // myChart.on('click', function(params) {
+    //     // Print name in console
+    //     console.log(params.name);
+    //   });
 }

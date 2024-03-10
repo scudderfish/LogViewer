@@ -1,6 +1,7 @@
 
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
+import { dataStore } from './data';
 
 
 delete L.Icon.Default.prototype._getIconUrl;
@@ -23,5 +24,21 @@ map.setView(defaultCenter, defaultZoom);
 
 basemap.addTo(map);
 marker.addTo(map);
+
+
+addEventListener("IndexUpdate",e=>{
+  console.log(e.detail);
+  if(!!dataStore && !!dataStore.lat & !!dataStore.lon) {
+    const lat=dataStore.lat[e.detail.dataIndex];
+    const lon = dataStore.lon[e.detail.dataIndex];
+
+    if(!isNaN(lat) && !isNaN(lon)) {
+      map.panTo([lat,lon])
+      marker.setLatLng([lat,lon])
+    }
+  }
+
+
+});
 
 console.log("map.js")

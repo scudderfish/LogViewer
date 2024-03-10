@@ -13,7 +13,13 @@ var app = {};
 var option;
 
 option = {
-  tooltip: {},
+  tooltip: {
+    alwaysShowContent:true,
+    trigger: 'axis',
+        position: function (pt) {
+            return [pt[0], '10%'];
+        }
+  },
   backgroundColor: '#fff',
   visualMap: {
     show: false,
@@ -77,6 +83,9 @@ option = {
 if (option && typeof option === 'object') {
   myChart.setOption(option);
 }
-
+myChart.dispatchAction({
+  type: 'grid3DShowAxisPointer',
+  value:[0,0,0.5],
+  });
 window.addEventListener('resize', myChart.resize);
 
