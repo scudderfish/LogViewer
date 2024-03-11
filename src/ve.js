@@ -1,6 +1,7 @@
 import * as echarts from 'echarts';
 import 'echarts-gl';
 import { tune } from './CurrentTune';
+import { dataStore } from './data';
 
 
 
@@ -20,6 +21,7 @@ doc.querySelector("constant[name='veTable']").lastChild.data.split("\n").filter(
 veTable=veTable.filter(r=>r.length>2);
 let rpmBins = doc.querySelector("constant[name='rpmBins']").lastChild.data.split("\n").map(e=>e.trim()).filter(a=>a.length).map(Number);
 let loadBins=doc.querySelector("constant[name='fuelLoadBins']").lastChild.data.split("\n").map(e=>e.trim()).filter(a=>a.length).map(Number);
+const algo=doc.querySelector("constant[name='algorithm']").textContent.replaceAll('"','');
 
 console.log(rpmBins);
 console.log(loadBins);
@@ -87,13 +89,22 @@ option = {
 if (option && typeof option === 'object') {
   myChart.setOption(option);
 }
-myChart.dispatchAction({
-  type: 'grid3DShowAxisPointer',
-  value:[0,0,0.5],
-  });
 window.addEventListener('resize', myChart.resize);
 
 
+
+
+addEventListener("IndexUpdate",e=>{
+  const rpm = dataStore.dataSeries["RPM"][e.detail.dataIndex];
+  const yaxis=dataStore.dataSeries[algo][e.detail.dataIndex];
+  const ve=dataStore.dataSeries["VE1"][e.detail.dataIndex];
+  myChart.dispatchAction({
+    type: 'grid3DShowAxisPointer',
+    value:[rpm,yaxis,ve],
+    });
+  
+  
+});
 
 
 
