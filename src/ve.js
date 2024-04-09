@@ -29,7 +29,7 @@ console.log(loadBins);
 const data = [];
 veTable.forEach((row,i) => {
   row.forEach((col,j)=> {
-    data.push([rpmBins[i],loadBins[j],col])
+    data.push([rpmBins[j],loadBins[i],col])
   })
 });
 console.log(data);
@@ -67,7 +67,7 @@ option = {
     type: 'value'
   },
   zAxis3D: {
-    type: 'value'
+    type: 'value',
   },
   grid3D: {
     viewControl: {
