@@ -30,7 +30,30 @@ export function loadFile(file,updateUI) {
 
 }
 
-
+function processTune(tuneText) {
+	const parser = new DOMParser();
+	const doc = parser.parseFromString(tuneText, "application/xml");
+	let veTable = [];
+	doc.querySelector("constant[name='veTable']").lastChild.data.split("\n").filter(a => a.length).forEach(e => { veTable.push(e.trim().split(" ").map(Number)); });
+	veTable = veTable.filter(r => r.length > 2);
+	let rpmBins = doc.querySelector("constant[name='rpmBins']").lastChild.data.split("\n").map(e => e.trim()).filter(a => a.length).map(Number);
+	let loadBins = doc.querySelector("constant[name='fuelLoadBins']").lastChild.data.split("\n").map(e => e.trim()).filter(a => a.length).map(Number);
+	const algo = doc.querySelector("constant[name='algorithm']").textContent.replaceAll('"', '');
+  
+  
+  const data = [];
+  veTable.forEach((row,i) => {
+	row.forEach((col,j)=> {
+	  data.push([rpmBins[j],loadBins[i],col])
+	})
+  });
+	dataStore.veMap={
+		rpmBins,
+		loadBins,
+		algo,
+		veTable
+	}  
+}
 
 function processData(data) {
 	const lines = data.split('\n');

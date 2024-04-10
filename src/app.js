@@ -1,8 +1,9 @@
 import './map'
 import './ve'
 import './chart'
-import { dataStore, loadFile } from './data';
+import { dataStore, loadFile, loadTune } from './data';
 import { updateLineChart } from './chart';
+import { updateTuneData } from './ve';
 
 
 window.addSeries=function(){
@@ -42,7 +43,7 @@ window.onload = function () {
     const tuneInput = document.getElementById('tuneInput');
     tuneInput.addEventListener('change', function (e) {
         const file = tuneInput.files[0];
-        loadTune(file);
+        loadTune(file,updateTuneData);
 });
 
 
