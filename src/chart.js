@@ -26,7 +26,6 @@ const option = {
     xAxis: {
         type: 'category',
         boundaryGap: false,
-        // data: date
     },
     yAxis: {
         type: 'value',
@@ -52,17 +51,25 @@ option && myChart.setOption(option);
 
 
 export function updateLineChart(selected) {
-    // console.log(dataStore);
-
-    // console.log(selected);
-
+    
     const newOptions = {};
 
     newOptions.xAxis = {
         type: 'category',
         boundaryGap: false,
-        data: dataStore.dataSeries.Time
+        data: dataStore.dataSeries.Time,
+        axisLabel:{
+            formatter:function(value,index){
+                return value;
+            }
+        }
+
     }
+    newOptions.title= {
+        left: 'center',
+        text: ""+dataStore.dataSeries.startDate
+    };
+    
     const series=[];
     const yAxis=[];
     
@@ -89,17 +96,4 @@ export function updateLineChart(selected) {
     newOptions.yAxis=yAxis;
     myChart.setOption(newOptions, false, false);
 
-    // myChart.getZr().on('mousemove',function(params){
-    //     console.log("mousemove");
-    //     console.log(params);
-    // })
-    // myChart.on('mouseover',function(params){
-    //     console.log("mouseover");
-    //     console.log(params);
-    // })
-
-    // myChart.on('click', function(params) {
-    //     // Print name in console
-    //     console.log(params.name);
-    //   });
 }

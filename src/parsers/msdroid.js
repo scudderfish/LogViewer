@@ -11,7 +11,7 @@ export function processMSDroidLog(series,data){
     let  dateString = CaptureDateLine.substr(colonIndex+2)
 	const dateComponents = dateString.split(' ')
 	dateString=dateComponents[0]+' ' +dateComponents[1]+' ' +dateComponents[2]+' ' +dateComponents[3]+' ' +dateComponents[5];
-	const startDate=new Date(dateString)
+	series.startDate=new Date(dateString)
 	while (data[0].indexOf('\t') === -1) {
 		data.splice(0, 1)
 	}
@@ -33,17 +33,17 @@ export function processMSDroidLog(series,data){
 		 	let seriesName=headers[j]
 		 	let dataPoint=Number(values[j]);
 
-		 	if(seriesName==="Time") {
-		 		let components=values[j].split('.')
-		 		dataPoint=new Date(startDate)
-		 		const seconds=Number(components[0])
-		 		let millis=Number(components[1])
-		 		if(seconds < 0) { 
-		 			millis=-millis
-		 		}
-		 		dataPoint.setSeconds(seconds);
-		 		dataPoint.setMilliseconds(millis);
-		 	}
+		 	// if(seriesName==="Time") {
+		 	// 	let components=values[j].split('.')
+		 	// 	dataPoint=new Date(startDate)
+		 	// 	const seconds=Number(components[0])
+		 	// 	let millis=Number(components[1])
+		 	// 	if(seconds < 0) { 
+		 	// 		millis=-millis
+		 	// 	}
+		 	// 	dataPoint.setSeconds(seconds);
+		 	// 	dataPoint.setMilliseconds(millis);
+		 	// }
 		 	manageMaxMin(dataPoint,seriesName,maxValues,minValues)
 		 	series[seriesName].push(dataPoint)
 		 }
