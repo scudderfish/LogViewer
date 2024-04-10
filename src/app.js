@@ -33,12 +33,17 @@ window.updateCharts = function() {
 }
 window.onload = function () {
     const fileInput = document.getElementById('fileInput');
-    const fileDisplayArea = document.getElementById('fileDisplayArea');
-
+    
     fileInput.addEventListener('change', function (e) {
                     const file = fileInput.files[0];
         loadFile(file,setupSelectors);
     });
+
+    const tuneInput = document.getElementById('tuneInput');
+    tuneInput.addEventListener('change', function (e) {
+        const file = tuneInput.files[0];
+        loadTune(file);
+});
 
 
 }

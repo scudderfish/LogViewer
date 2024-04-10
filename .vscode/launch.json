@@ -9,16 +9,14 @@
             "request": "launch",
             "reAttach": true,
             "name": "Launch localhost",
-            "url": "http://localhost:8000/index.html",
-            "webRoot": "${workspaceFolder}"
-        },
-        {
-            "type": "firefox",
-            "request": "launch",
-            "reAttach": true,
-            "name": "Launch index.html",
-            "file": "${workspaceFolder}/dist/index.html"
-        },
-        
+            "url": "http://localhost:1234/index.html",
+            "webRoot": "${workspaceFolder}",
+            "pathMappings": [
+                {
+                    "url": "file:///__parcel_source_root/src",
+                    "path": "${workspaceFolder}/src"
+                }
+            ]
+        }
     ]
 }

@@ -12,19 +12,25 @@ const LogTypeEnum = {
 	GPX		: 6
 }
 
+export function loadTune(file,updateUI) {
+	const reader = new FileReader();
+	reader.onload=function (e) {
+		processTune(reader.result);
+		updateUI();
+	}
+	reader.readAsText(file);
+}
 export function loadFile(file,updateUI) {
     const reader = new FileReader();
     reader.onload = function (e) {
         processData(reader.result);
-        // g?.destroy();
-        // g = null;
         updateUI()
-        // resetChart()
-        // constructMap()
     }
     reader.readAsText(file);
 
 }
+
+
 
 function processData(data) {
 	const lines = data.split('\n');

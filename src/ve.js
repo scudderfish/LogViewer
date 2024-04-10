@@ -14,8 +14,6 @@ var myChart = echarts.init(dom, null, {
 
 const algo = updateMap(tune);
 
-
-
 window.addEventListener('resize', myChart.resize);
 
 
@@ -34,10 +32,6 @@ addEventListener("IndexUpdate",e=>{
   
 });
 
-updateMap(tune);
-
-
-
 
 function updateMap(tune) {
   
@@ -51,74 +45,66 @@ function updateMap(tune) {
   const algo = doc.querySelector("constant[name='algorithm']").textContent.replaceAll('"', '');
 
 
-  const data = [];
-  veTable.forEach((row, i) => {
-    row.forEach((col, j) => {
-      data.push([rpmBins[i], loadBins[j], col]);
-    });
-  });
+const data = [];
+veTable.forEach((row,i) => {
+  row.forEach((col,j)=> {
+    data.push([rpmBins[i],loadBins[j],col])
+  })
+});
+console.log(data);
 
-  const axisStyle = {
-    lineStyle: {
-      width: 5
+
+option = {
+  tooltip: {
+  },
+  backgroundColor: '#fff',
+  visualMap: {
+    show: false,
+    dimension: 2,
+    min: 0,
+    max: 100,
+    inRange: {
+      color: [
+        '#313695',
+        '#4575b4',
+        '#74add1',
+        '#abd9e9',
+        '#e0f3f8',
+        '#ffffbf',
+        '#fee090',
+        '#fdae61',
+        '#f46d43',
+        '#d73027',
+        '#a50026'
+      ]
     }
-  };
+  },
+  xAxis3D: {
+    type: 'value'
+  },
+  yAxis3D: {
+    type: 'value'
+  },
+  zAxis3D: {
+    type: 'value'
+  },
+  grid3D: {
+    viewControl: {
+      // projection: 'orthographic'
+    }
+  },
+  series: [
+    {
+      type: 'surface',
+      wireframe: {
+        // show: false
+      },
+      dataShape:[16,16],
+      data:data
+    }
+  ]
+};
 
-  const option = {
-    tooltip: {},
-    backgroundColor: '#fff',
-    visualMap: {
-      show: true,
-      dimension: 2,
-      min: 0,
-      max: 100,
-      inRange: {
-        color: [
-          '#313695',
-          '#4575b4',
-          '#74add1',
-          '#abd9e9',
-          '#e0f3f8',
-          '#ffffbf',
-          '#fee090',
-          '#fdae61',
-          '#f46d43',
-          '#d73027',
-          '#a50026'
-        ]
-      }
-    },
-    xAxis3D: {
-      name: "RPM",
-      type: 'value',
-      axisPointer: axisStyle
-    },
-    yAxis3D: {
-      name: algo,
-      type: 'value',
-      axisPointer: axisStyle
-    },
-    zAxis3D: {
-      name: "VE",
-      type: 'value',
-      axisPointer: axisStyle
-    },
-    grid3D: {
-      viewControl: {
-        // projection: 'orthographic'
-      }
-    },
-    series: [
-      {
-        type: 'bar3D',
-        wireframe: {
-          // show: false
-        },
-        dataShape: [16, 16],
-        data: data
-      }
-    ]
-  };
   myChart.setOption(option);
   return algo;
 }
