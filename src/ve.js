@@ -48,7 +48,7 @@ function updateMap(tune) {
 const data = [];
 veTable.forEach((row,i) => {
   row.forEach((col,j)=> {
-    data.push([rpmBins[i],loadBins[j],col])
+    data.push([rpmBins[j],loadBins[i],col])
   })
 });
 console.log(data);
