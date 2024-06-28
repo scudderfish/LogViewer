@@ -1,6 +1,5 @@
 import * as echarts from 'echarts';
 import { dataStore } from './data';
-console.log("chart")
 
 const myChart = echarts.init(document.getElementById('chart-container'));
 const option = {

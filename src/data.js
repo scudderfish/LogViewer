@@ -50,7 +50,7 @@ function processTune(tuneText) {
 	dataStore.veMap={
 		rpmBins,
 		loadBins,
-		algo,
+		algo: algo||"MAP",
 		veTable
 	}  
 }

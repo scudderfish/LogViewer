@@ -39,5 +39,3 @@ addEventListener("IndexUpdate",e=>{
 
 
 });
-
-console.log("map.js")
